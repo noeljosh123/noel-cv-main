@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-on-surface-variant: var(--sys-on-surface-variant);
+  --color-surface: var(--sys-surface);
+  --color-tertiary-fixed: var(--sys-tertiary-fixed);
+  --color-surface-container-highest: var(--sys-surface-container-highest);
+  --color-error-dim: var(--sys-error-dim);
+  --color-surface-container-low: var(--sys-surface-container-low);
+  --color-tertiary: var(--sys-tertiary);
+  --color-tertiary-dim: var(--sys-tertiary-dim);
+  --color-surface-variant: var(--sys-surface-variant);
+  --color-on-secondary-container: var(--sys-on-secondary-container);
+  --color-error: var(--sys-error);
+  --color-secondary: var(--sys-secondary);
+  --color-on-primary-fixed-variant: var(--sys-on-primary-fixed-variant);
+  --color-tertiary-container: var(--sys-tertiary-container);
+  --color-on-surface: var(--sys-on-surface);
+  --color-on-error-container: var(--sys-on-error-container);
+  --color-on-tertiary-fixed: var(--sys-on-tertiary-fixed);
+  --color-primary-dim: var(--sys-primary-dim);
+  --color-on-secondary-fixed-variant: var(--sys-on-secondary-fixed-variant);
+  --color-tertiary-fixed-dim: var(--sys-tertiary-fixed-dim);
+  --color-secondary-fixed-dim: var(--sys-secondary-fixed-dim);
+  --color-primary: var(--sys-primary);
+  --color-surface-container: var(--sys-surface-container);
+  --color-on-primary-container: var(--sys-on-primary-container);
+  --color-secondary-dim: var(--sys-secondary-dim);
+  --color-surface-container-high: var(--sys-surface-container-high);
+  --color-background: var(--sys-background);
+  --color-on-tertiary-fixed-variant: var(--sys-on-tertiary-fixed-variant);
+  --color-surface-bright: var(--sys-surface-bright);
+  --color-on-error: var(--sys-on-error);
+  --color-outline-variant: var(--sys-outline-variant);
+  --color-primary-fixed: var(--sys-primary-fixed);
+  --color-inverse-primary: var(--sys-inverse-primary);
+  --color-primary-fixed-dim: var(--sys-primary-fixed-dim);
+  --color-secondary-fixed: var(--sys-secondary-fixed);
+  --color-on-tertiary: var(--sys-on-tertiary);
+  --color-primary-container: var(--sys-primary-container);
+  --color-error-container: var(--sys-error-container);
+  --color-on-primary-fixed: var(--sys-on-primary-fixed);
+  --color-on-secondary-fixed: var(--sys-on-secondary-fixed);
+  --color-surface-tint: var(--sys-surface-tint);
+  --color-on-tertiary-container: var(--sys-on-tertiary-container);
+  --color-secondary-container: var(--sys-secondary-container);
+  --color-on-background: var(--sys-on-background);
+  --color-inverse-on-surface: var(--sys-inverse-on-surface);
+  --color-outline: var(--sys-outline);
+  --color-surface-dim: var(--sys-surface-dim);
+  --color-inverse-surface: var(--sys-inverse-surface);
+  --color-surface-container-lowest: var(--sys-surface-container-lowest);
+  --color-on-primary: var(--sys-on-primary);
+  --color-on-secondary: var(--sys-on-secondary);
+
+  --radius-DEFAULT: 10px;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  --font-headline: "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-label: "Inter", sans-serif;
+  --font-inter: "Inter", sans-serif;
+}
+
+:root {
+  --layout-max-width: 1500px;
+  --layout-gutter-mobile: 20px;
+  --layout-gutter-desktop: 84px;
+  --layout-gutter-xl: 120px;
+
+  --sys-on-surface-variant: #666666;
+  --sys-surface: #FFFFFF;
+  --sys-tertiary-fixed: #EEEEEE;
+  --sys-surface-container-highest: #E5E5E5;
+  --sys-error-dim: #9f1239;
+  --sys-surface-container-low: #FAFAFA;
+  --sys-tertiary: #1A1A1A;
+  --sys-tertiary-dim: #333333;
+  --sys-surface-variant: #F5F5F5;
+  --sys-on-secondary-container: #1A1A1A;
+  --sys-error: #e11d48;
+  --sys-secondary: #1A1A1A;
+  --sys-on-primary-fixed-variant: #1A1A1A;
+  --sys-tertiary-container: #EEEEEE;
+  --sys-on-surface: #1A1A1A;
+  --sys-on-error-container: #4c0519;
+  --sys-on-tertiary-fixed: #1A1A1A;
+  --sys-primary-dim: #333333;
+  --sys-on-secondary-fixed-variant: #1A1A1A;
+  --sys-tertiary-fixed-dim: #CCCCCC;
+  --sys-secondary-fixed-dim: #CCCCCC;
+  --sys-primary: #1A1A1A;
+  --sys-surface-container: #F5F5F5;
+  --sys-on-primary-container: #FFFFFF;
+  --sys-secondary-dim: #333333;
+  --sys-surface-container-high: #EEEEEE;
+  --sys-background: #FFFFFF;
+  --sys-on-tertiary-fixed-variant: #1A1A1A;
+  --sys-surface-bright: #FFFFFF;
+  --sys-on-error: #fff1f2;
+  --sys-outline-variant: #E5E5E5;
+  --sys-primary-fixed: #EEEEEE;
+  --sys-inverse-primary: #FFFFFF;
+  --sys-primary-fixed-dim: #CCCCCC;
+  --sys-secondary-fixed: #EEEEEE;
+  --sys-on-tertiary: #FFFFFF;
+  --sys-primary-container: #1A1A1A;
+  --sys-error-container: #fda4af;
+  --sys-on-primary-fixed: #1A1A1A;
+  --sys-on-secondary-fixed: #1A1A1A;
+  --sys-surface-tint: #1A1A1A;
+  --sys-on-tertiary-container: #FFFFFF;
+  --sys-secondary-container: #1A1A1A;
+  --sys-on-background: #1A1A1A;
+  --sys-inverse-on-surface: #F5F5F5;
+  --sys-outline: #CCCCCC;
+  --sys-surface-dim: #EEEEEE;
+  --sys-inverse-surface: #1A1A1A;
+  --sys-surface-container-lowest: #FFFFFF;
+  --sys-on-primary: #FFFFFF;
+  --sys-on-secondary: #FFFFFF;
+}
+
+.dark {
+  --sys-on-surface-variant: #A3A3A3;
+  --sys-surface: #1A1A1A;
+  --sys-tertiary-fixed: #333333;
+  --sys-surface-container-highest: #444444;
+  --sys-error-dim: #fda4af;
+  --sys-surface-container-low: #222222;
+  --sys-tertiary: #FFFFFF;
+  --sys-tertiary-dim: #CCCCCC;
+  --sys-surface-variant: #2A2A2A;
+  --sys-on-secondary-container: #FFFFFF;
+  --sys-error: #fb7185;
+  --sys-secondary: #FFFFFF;
+  --sys-on-primary-fixed-variant: #FFFFFF;
+  --sys-tertiary-container: #333333;
+  --sys-on-surface: #FFFFFF;
+  --sys-on-error-container: #ffe4e6;
+  --sys-on-tertiary-fixed: #FFFFFF;
+  --sys-primary-dim: #CCCCCC;
+  --sys-on-secondary-fixed-variant: #FFFFFF;
+  --sys-tertiary-fixed-dim: #888888;
+  --sys-secondary-fixed-dim: #888888;
+  --sys-primary: #FFFFFF;
+  --sys-surface-container: #2A2A2A;
+  --sys-on-primary-container: #1A1A1A;
+  --sys-secondary-dim: #CCCCCC;
+  --sys-surface-container-high: #333333;
+  --sys-background: #1A1A1A;
+  --sys-on-tertiary-fixed-variant: #CCCCCC;
+  --sys-surface-bright: #222222;
+  --sys-on-error: #4c0519;
+  --sys-outline-variant: #333333;
+  --sys-primary-fixed: #333333;
+  --sys-inverse-primary: #1A1A1A;
+  --sys-primary-fixed-dim: #555555;
+  --sys-secondary-fixed: #333333;
+  --sys-on-tertiary: #1A1A1A;
+  --sys-primary-container: #FFFFFF;
+  --sys-error-container: #881337;
+  --sys-on-primary-fixed: #FFFFFF;
+  --sys-on-secondary-fixed: #FFFFFF;
+  --sys-surface-tint: #FFFFFF;
+  --sys-on-tertiary-container: #1A1A1A;
+  --sys-secondary-container: #FFFFFF;
+  --sys-on-background: #FFFFFF;
+  --sys-inverse-on-surface: #222222;
+  --sys-outline: #555555;
+  --sys-surface-dim: #1A1A1A;
+  --sys-inverse-surface: #FFFFFF;
+  --sys-surface-container-lowest: #1A1A1A;
+  --sys-on-primary: #1A1A1A;
+  --sys-on-secondary: #1A1A1A;
+}
+
+body, html {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-outline-variant) transparent;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.material-symbol-filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant);
+  border-radius: 10px;
+}
+
+::selection {
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+}
+
+.icon-sm {
+  font-size: 14px;
+}
+
+/* Chatbot messages scrollbar */
+.chatbot-messages {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-outline-variant) transparent;
+}
+
+.chatbot-messages::-webkit-scrollbar {
+  width: 3px;
+}
+
+.chatbot-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant);
+  border-radius: 10px;
+}
