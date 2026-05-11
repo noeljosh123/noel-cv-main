@@ -152,49 +152,49 @@ const ProfileHeader = ({
   };
 
   return (
-  <section id="profile" className="p-8 md:p-9">
-    <div className="flex flex-col md:flex-row items-start gap-4 mb-6 w-full">
-      <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
-        <ProfileTransitionMedia
-          isDarkMode={isDarkMode}
-          isPlaying={isPlaying}
-          transitionDirection={transitionDirection}
-          darkToLightRef={darkToLightRef}
-          lightToDarkRef={lightToDarkRef}
-          onDarkToLightEnded={handleDarkToLightEnded}
-          onLightToDarkEnded={handleLightToDarkEnded}
-        />
-        <div>
-          <h1 className="text-4xl font-extrabold tracking-tight text-on-surface mb-1">Noel Josh Casin</h1>
-          <p className="text-on-surface-variant flex items-center gap-1 text-base">
-            <span className="material-symbols-outlined text-base">location_on</span> Mandaluyong, Philippines
-          </p>
-          <p className="text-sm font-medium text-on-surface-variant/80 mt-1.5">CS / AI / Full stack AI</p>
-          <div className="mt-3 inline-flex items-center gap-2.5 rounded-lg px-3.5 py-2 border border-outline-variant/30 bg-gradient-to-r from-surface-container to-surface-container-high shadow-sm">
-            <span className="material-symbols-outlined text-sm text-on-surface-variant">school</span>
-            <span className="text-xs font-extrabold tracking-wide text-on-surface">FEU Tech CS '26</span>
+    <section id="profile" className="p-8 md:p-9">
+      <div className="flex flex-col md:flex-row items-start gap-4 mb-6 w-full">
+        <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
+          <ProfileTransitionMedia
+            isDarkMode={isDarkMode}
+            isPlaying={isPlaying}
+            transitionDirection={transitionDirection}
+            darkToLightRef={darkToLightRef}
+            lightToDarkRef={lightToDarkRef}
+            onDarkToLightEnded={handleDarkToLightEnded}
+            onLightToDarkEnded={handleLightToDarkEnded}
+          />
+          <div>
+            <h1 className="text-4xl font-extrabold tracking-tight text-on-surface mb-1">Noel Josh Casin</h1>
+            <p className="text-on-surface-variant flex items-center gap-1 text-base">
+              <span className="material-symbols-outlined text-base">location_on</span> Mandaluyong, Philippines
+            </p>
+            <p className="text-sm font-medium text-on-surface-variant/80 mt-1.5">CS / AI / Full stack AI</p>
+            <div className="mt-3 inline-flex items-center gap-2.5 rounded-lg px-3.5 py-2 border border-outline-variant/30 bg-gradient-to-r from-surface-container to-surface-container-high shadow-sm">
+              <span className="material-symbols-outlined text-sm text-on-surface-variant">school</span>
+              <span className="text-xs font-extrabold tracking-wide text-on-surface">FEU Tech CS '26</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div className="flex flex-wrap gap-3 pt-3 border-t border-outline-variant/10 justify-between items-center">
-      <div className="flex flex-wrap gap-3">
-        <a href="/Noel_Josh_Casin_Resume.pdf" download className="bg-surface border border-outline-variant/30 text-on-surface px-6 py-2.5 rounded-full text-sm font-bold hover:bg-surface-container-low transition-all flex items-center gap-2"><span className="material-symbols-outlined text-sm">download</span>Download CV</a>
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=noeljoshcasin@gmail.com" target="_blank" rel="noopener noreferrer" className="bg-surface border border-outline-variant/30 text-on-surface px-6 py-2.5 rounded-full text-sm font-bold hover:bg-surface-container-low transition-all flex items-center gap-2"><span className="material-symbols-outlined text-sm">mail</span>Send Email</a>
+      <div className="flex flex-wrap gap-3 pt-3 border-t border-outline-variant/10 justify-between items-center">
+        <div className="flex flex-wrap gap-3">
+          <a href="/Noel_Josh_Casin_Resume.pdf" download className="bg-surface border border-outline-variant/30 text-on-surface px-6 py-2.5 rounded-full text-sm font-bold hover:bg-surface-container-low transition-all flex items-center gap-2"><span className="material-symbols-outlined text-sm">download</span>Download CV</a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=noeljoshcasin@gmail.com" target="_blank" rel="noopener noreferrer" className="bg-surface border border-outline-variant/30 text-on-surface px-6 py-2.5 rounded-full text-sm font-bold hover:bg-surface-container-low transition-all flex items-center gap-2"><span className="material-symbols-outlined text-sm">mail</span>Send Email</a>
+        </div>
+        <button
+          onClick={handleToggleDarkMode}
+          disabled={isPlaying}
+          aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          className="inline-flex items-center gap-1.5 rounded-full border border-outline-variant/30 bg-surface px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-on-surface-variant hover:text-on-surface hover:border-outline transition-colors shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          <span className="material-symbols-outlined text-base leading-none" aria-hidden="true">
+            {isDarkMode ? 'light_mode' : 'dark_mode'}
+          </span>
+          <span className="ml-1">Theme</span>
+        </button>
       </div>
-      <button 
-        onClick={handleToggleDarkMode}
-        disabled={isPlaying}
-        aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-        className="inline-flex items-center gap-1.5 rounded-full border border-outline-variant/30 bg-surface px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-on-surface-variant hover:text-on-surface hover:border-outline transition-colors shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
-      >
-        <span className="material-symbols-outlined text-base leading-none" aria-hidden="true">
-          {isDarkMode ? 'light_mode' : 'dark_mode'}
-        </span>
-        <span className="ml-1">Theme</span>
-      </button>
-    </div>
-  </section>
+    </section>
   );
 };
 
@@ -284,25 +284,27 @@ const ProjectCard = ({ project }: { project: any; key?: React.Key }) => {
   const hasExternalLink = typeof project.repo === 'string' && project.repo !== '#';
 
   return (
-    <motion.div 
-      layout
+    <motion.div
+      layout="position"
+      whileHover={{ scale: 1.01, translateY: -2 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       onClick={() => setIsExpanded(!isExpanded)}
-      className="group p-4 bg-surface border border-outline-variant/20 rounded-xl hover:bg-on-surface/5 hover:scale-[1.02] hover:shadow-sm transition-all duration-300 ease-out cursor-pointer overflow-hidden flex flex-col gap-3"
+      className="break-inside-avoid mb-4 md:mb-5 group p-4 bg-surface border border-outline-variant/20 rounded-xl hover:bg-on-surface/5 hover:shadow-md cursor-pointer overflow-hidden flex flex-col gap-3"
     >
-      <motion.div layout className="flex justify-between items-start">
-        <motion.h3 layout className="text-lg font-bold">{project.title}</motion.h3>
-        <motion.span layout className="material-symbols-outlined text-outline-variant group-hover:text-on-surface transition-colors">
+      <div className="flex justify-between items-start">
+        <h3 className="text-lg font-bold">{project.title}</h3>
+        <span className="material-symbols-outlined text-outline-variant group-hover:text-on-surface transition-colors">
           {isExpanded ? 'expand_less' : 'north_east'}
-        </motion.span>
-      </motion.div>
-      
-      <motion.p layout className="text-on-surface-variant text-sm leading-relaxed">
+        </span>
+      </div>
+
+      <p className="text-on-surface-variant text-sm leading-relaxed">
         {isExpanded ? project.longDesc : project.shortDesc}
-      </motion.p>
+      </p>
 
       <AnimatePresence>
         {isExpanded && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -310,9 +312,9 @@ const ProjectCard = ({ project }: { project: any; key?: React.Key }) => {
           >
             <div className="pt-2 pb-4">
               {hasExternalLink ? (
-                <a 
-                  href={project.repo} 
-                  target="_blank" 
+                <a
+                  href={project.repo}
+                  target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                   className="inline-flex items-center gap-1 text-xs font-bold text-on-surface hover:underline"
@@ -331,13 +333,13 @@ const ProjectCard = ({ project }: { project: any; key?: React.Key }) => {
         )}
       </AnimatePresence>
 
-      <motion.div layout className="flex flex-wrap gap-2 mt-auto">
+      <div className="flex flex-wrap gap-2 mt-auto">
         {(isExpanded ? project.tags : project.tags.slice(0, 3)).map((tag: string) => (
           <span key={tag} className="text-[10px] uppercase tracking-wider font-bold px-2 py-1 bg-surface-variant text-on-surface rounded">
             {tag}
           </span>
         ))}
-      </motion.div>
+      </div>
     </motion.div>
   );
 };
@@ -373,7 +375,7 @@ const AllProjectsPage = () => (
             Complete project list based on portfolio and resume experience.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 pb-8">
+        <div className="columns-1 md:columns-2 gap-4 md:gap-5 pb-8">
           {allProjects.map(p => <ProjectCard key={p.id} project={p} />)}
         </div>
       </section>
@@ -411,11 +413,11 @@ const Education = () => (
 const Gallery = () => {
   // Bento layout for 4 images: 1 large hero + 2 stacked right + 1 wide bottom
   const bentoConfig = [
-    { src: '/assets/galley 1.jpg',   cls: 'col-span-2 md:col-span-4 row-span-2' }, // large hero
-    { src: '/assets/gallery 2.jpg',  cls: 'col-span-2 md:col-span-2 row-span-1' }, // top-right
-    { src: '/assets/gallery 3.jpg',  cls: 'col-span-2 md:col-span-2 row-span-1' }, // mid-right
-    { src: '/assets/gallery 4.jpg',  cls: 'col-span-2 md:col-span-3 row-span-2' }, // bottom-left
-    { src: '/assets/gallery 5.jpg',  cls: 'col-span-2 md:col-span-3 row-span-2' }, // bottom-right
+    { src: '/assets/galley 1.jpg', cls: 'col-span-2 md:col-span-4 row-span-2' }, // large hero
+    { src: '/assets/gallery 2.jpg', cls: 'col-span-2 md:col-span-2 row-span-1' }, // top-right
+    { src: '/assets/gallery 3.jpg', cls: 'col-span-2 md:col-span-2 row-span-1' }, // mid-right
+    { src: '/assets/gallery 4.jpg', cls: 'col-span-2 md:col-span-3 row-span-2' }, // bottom-left
+    { src: '/assets/gallery 5.jpg', cls: 'col-span-2 md:col-span-3 row-span-2' }, // bottom-right
   ];
 
   const containerVariants: Variants = {

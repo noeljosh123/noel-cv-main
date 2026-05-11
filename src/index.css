@@ -68,10 +68,10 @@
 }
 
 :root {
-  --layout-max-width: 1500px;
-  --layout-gutter-mobile: 20px;
-  --layout-gutter-desktop: 84px;
-  --layout-gutter-xl: 120px;
+  --layout-max-width: 93.75rem;
+  --layout-gutter-mobile: 1.25rem;
+  --layout-gutter-desktop: 5.25rem;
+  --layout-gutter-xl: 7.5rem;
 
   --sys-on-surface-variant: #666666;
   --sys-surface: #FFFFFF;
@@ -182,6 +182,7 @@
 
 body, html {
   font-family: 'Inter', sans-serif;
+  font-size: 80%;
   background-color: var(--color-surface);
   color: var(--color-on-surface);
   transition: background-color 0.3s ease, color 0.3s ease;

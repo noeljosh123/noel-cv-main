@@ -5,14 +5,15 @@
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { MessageCircle } from 'lucide-react';
 
 /* ─────────────────────────────────────────────
    Rate-limit constants
    ───────────────────────────────────────────── */
 const MAX_MESSAGES_PER_SESSION = 20;   // max total user messages per page load
-const MAX_REQUESTS_PER_MINUTE  = 4;    // Gemini free-tier stays comfortably within 15 RPM
-const COOLDOWN_SECONDS         = 15;   // cooldown window when rate-limit is hit
-const MAX_INPUT_LENGTH         = 400;  // chars; blocks huge prompt injections
+const MAX_REQUESTS_PER_MINUTE = 4;    // Gemini free-tier stays comfortably within 15 RPM
+const COOLDOWN_SECONDS = 15;   // cooldown window when rate-limit is hit
+const MAX_INPUT_LENGTH = 400;  // chars; blocks huge prompt injections
 
 /* ─────────────────────────────────────────────
    Types
@@ -146,11 +147,10 @@ const ChatBubble = ({ message }: { message: ChatMessage }) => {
       className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}
     >
       <div
-        className={`max-w-[88%] px-4 py-3 text-sm leading-relaxed break-words ${
-          isUser
+        className={`max-w-[88%] px-4 py-3 text-sm leading-relaxed break-words ${isUser
             ? 'bg-primary-container text-on-primary-container rounded-2xl rounded-br-md whitespace-pre-wrap'
             : 'bg-surface-container-high text-on-surface rounded-2xl rounded-bl-md'
-        }`}
+          }`}
       >
         {isUser ? message.content : renderMarkdown(message.content)}
       </div>
@@ -170,19 +170,19 @@ const SUGGESTIONS = ['Who is Noel?', 'Tech stack?', 'Work experience?', 'Project
 const rateLimiter = new RateLimiter(); // singleton — lives for the page session
 
 export default function Chatbot() {
-  const [isOpen, setIsOpen]             = useState(false);
-  const [messages, setMessages]         = useState<ChatMessage[]>([]);
-  const [inputValue, setInputValue]     = useState('');
-  const [isTyping, setIsTyping]         = useState(false);
-  const [hasUnread, setHasUnread]       = useState(false);
-  const [cooldown, setCooldown]         = useState(0);         // seconds remaining
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [inputValue, setInputValue] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [hasUnread, setHasUnread] = useState(false);
+  const [cooldown, setCooldown] = useState(0);         // seconds remaining
   const [sessionCount, setSessionCount] = useState(0);        // messages sent this session
 
-  const messagesEndRef  = useRef<HTMLDivElement>(null);
-  const inputRef        = useRef<HTMLInputElement>(null);
-  const isSendingRef    = useRef(false);                       // debounce guard
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const isSendingRef = useRef(false);                       // debounce guard
   const cooldownTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const chatHistoryRef  = useRef<{ role: string; parts: { text: string }[] }[]>([]);
+  const chatHistoryRef = useRef<{ role: string; parts: { text: string }[] }[]>([]);
 
   /* ── Auto-scroll ── */
   const scrollToBottom = useCallback(() => {
@@ -310,8 +310,7 @@ export default function Chatbot() {
         errContent =
           `⏳ The AI service is momentarily busy. Please wait ${wait} seconds and try again.`;
       } else {
-        errContent =
-          "I'm sorry, something went wrong. Please try again in a moment.";
+        errContent = err instanceof Error ? err.message : "Something went wrong. Please try again.";
       }
 
       addAssistantMessage(errContent);
@@ -319,15 +318,15 @@ export default function Chatbot() {
       setIsTyping(false);
       isSendingRef.current = false;
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTyping, isOpen, sessionCount, startCooldown]);
 
   const handleSubmit = (e: React.FormEvent) => { e.preventDefault(); sendMessage(inputValue); };
   const handleSuggestion = (s: string) => sendMessage(s);
 
-  const isInputDisabled   = isTyping || cooldown > 0 || sessionCount >= MAX_MESSAGES_PER_SESSION;
-  const showSuggestions   = messages.length === 0;
-  const remaining         = MAX_MESSAGES_PER_SESSION - sessionCount;
+  const isInputDisabled = isTyping || cooldown > 0 || sessionCount >= MAX_MESSAGES_PER_SESSION;
+  const showSuggestions = messages.length === 0;
+  const remaining = MAX_MESSAGES_PER_SESSION - sessionCount;
 
   return (
     <>
@@ -347,14 +346,14 @@ export default function Chatbot() {
             <div className="flex items-center justify-between px-5 py-4 border-b border-outline-variant/15 bg-surface-container-low/60 backdrop-blur-xl">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-9 h-9 rounded-full bg-primary-container flex items-center justify-center">
-                    <span className="material-symbols-outlined text-lg text-on-primary-container">smart_toy</span>
+                  <div className="w-9 h-9 rounded-full bg-primary-container overflow-hidden flex items-center justify-center">
+                    <img src="/assets/light-mode.jpg" alt="Noel" className="w-full h-full object-cover" />
                   </div>
                   <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-surface-container-low" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-on-surface leading-tight">Portfolio Assistant</h3>
-                  <p className="text-[11px] text-on-surface-variant/70 font-medium">Powered by Gemini</p>
+
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -449,8 +448,8 @@ export default function Chatbot() {
                     cooldown > 0
                       ? `Wait ${cooldown}s…`
                       : sessionCount >= MAX_MESSAGES_PER_SESSION
-                      ? 'Session limit reached'
-                      : 'Ask about Noel…'
+                        ? 'Session limit reached'
+                        : 'Ask about Noel…'
                   }
                   disabled={isInputDisabled}
                   className="flex-1 bg-transparent text-sm text-on-surface placeholder:text-on-surface-variant/50 outline-none py-1.5 disabled:opacity-40"
@@ -500,9 +499,10 @@ export default function Chatbot() {
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: -90, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="material-symbols-outlined text-2xl"
-              style={{ color: 'var(--sys-on-primary-container)' }}
-            >chat</motion.span>
+              className="flex items-center justify-center text-on-primary-container"
+            >
+              <MessageCircle className="w-6 h-6" />
+            </motion.span>
           )}
         </AnimatePresence>
 

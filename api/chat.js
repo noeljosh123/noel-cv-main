@@ -29,19 +29,24 @@ const PORTFOLIO_CONTEXT = `You are a smart, concise portfolio assistant for Noel
 - Backend: Django, Django Ninja, SQL, Firebase, Supabase
 - Other: Power Platform, Project Management
 
-**Work Experience:**
-- **Automation Developer Intern @ Reed Elsevier (RELX)** | Dec 2025 – Mar 2026
-  - *Resource Tracker (DEVUTIL v2)*: Full-stack app replacing Excel-based hour tracking. Stack: Python, Django Ninja, React, SQL.
-  - *OSP Tool*: Project dashboard for progress, expenses & burn rate. Stack: React, TypeScript, Node.js, Python, Django, Power Platform.
+**Projects & Experience:**
+- **Resource Tracker (DEVUTIL v2)** — A full-stack internal tool developed at **Reed Elsevier (RELX)**. Replaced manual Excel-based tracking with real-time allocation and editing. Stack: **Python**, **Django Ninja**, **React**, **SQL**.
+- **OSP Tool (Engagement Oversight)** — Centralized enterprise dashboard developed at **Reed Elsevier (RELX)** for tracking project progress, expenses, and financial burn rates. Integrated **Power Platform** components. Stack: **React**, **TypeScript**, **Node.js**, **Python**, **Django**.
+- **CaraBuddy** — Local-first personal finance mobile app prioritizing privacy. Features real-time sync and secure database management. Stack: **Supabase**, **React**, **Tailwind CSS**.
+- **RoaDry** — Flood monitoring and safe route app for Metro Manila. Uses **Dijkstra's algorithm** for routing and **Azure Vision AI** for flood detection. Integrated **Firebase** and **NLP**-based safety data aggregation. Stack: **Dart/Flutter**, **Firebase**, **Azure AI**.
+- **KwikSlot** — Cinema booking platform with an interactive **8×10 seat grid**, VIP pricing tiers, and a multi-step checkout flow with real-time conflict resolution. Stack: **React**, **TypeScript**, **Tailwind CSS**, **Vite**.
 
-**Projects:**
-- **CaraBuddy** — Personal finance app. Stack: Supabase (auth, DB, real-time sync).
-- **RoaDry** — Flood monitoring & safe route app for Metro Manila. Stack: Dart, Firebase, Azure Vision AI, Dijkstra's algorithm.
-- **KwikSlot** — Cinema booking platform. Stack: React, TypeScript, Tailwind CSS, Vite. Features: 8×10 seat grid, VIP pricing, multi-step checkout.
+**Certifications:**
+- Civil Service Eligibility (Professional Level)
+- CCNA: Introduction to Network
+- DevNet Associate Course
+- PMI Project Management
+- ITS Python
 
-**Certifications:** Civil Service Eligibility (Prof.), CCNA, DevNet Associate, PMI Project Management, ITS Python
-
-**Interests:** Full-Stack Development, Gaming | **Languages:** English, Filipino, Mandarin (Basic)
+**Interests & Skills:**
+- Focus: **Full-Stack Development**, **Artificial Intelligence**, **Automation**.
+- Interests: Gaming, AI Research.
+- Languages: **English**, **Filipino**, **Mandarin** (Basic).
 
 **Contact & Links:**
 - Email: noeljoshcasin@gmail.com
@@ -65,7 +70,7 @@ export default async function handler(req, res) {
 
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-3.1-flash-lite',
       generationConfig: {
         maxOutputTokens: 600,
         temperature: 0.7,
@@ -98,6 +103,10 @@ export default async function handler(req, res) {
       return res.status(429).json({ error: 'RATE_LIMIT' });
     }
     console.error('Chat API Error:', err);
-    return res.status(500).json({ error: 'INTERNAL_ERROR', details: err.message });
+    return res.status(500).json({ 
+      error: 'INTERNAL_ERROR', 
+      message: err.message,
+      stack: process.env.NODE_ENV === 'development' ? err.stack : undefined 
+    });
   }
 }
