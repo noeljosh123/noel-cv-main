@@ -6,6 +6,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MessageCircle } from 'lucide-react';
+import { PORTFOLIO_CONTEXT } from './portfolioContext';
 
 /* ─────────────────────────────────────────────
    Rate-limit constants
@@ -148,8 +149,8 @@ const ChatBubble = ({ message }: { message: ChatMessage }) => {
     >
       <div
         className={`max-w-[88%] px-4 py-3 text-sm leading-relaxed break-words ${isUser
-            ? 'bg-primary-container text-on-primary-container rounded-2xl rounded-br-md whitespace-pre-wrap'
-            : 'bg-surface-container-high text-on-surface rounded-2xl rounded-bl-md'
+          ? 'bg-primary-container text-on-primary-container rounded-2xl rounded-br-md whitespace-pre-wrap'
+          : 'bg-surface-container-high text-on-surface rounded-2xl rounded-bl-md'
           }`}
       >
         {isUser ? message.content : renderMarkdown(message.content)}
@@ -182,7 +183,7 @@ export default function Chatbot() {
   const inputRef = useRef<HTMLInputElement>(null);
   const isSendingRef = useRef(false);                       // debounce guard
   const cooldownTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const chatHistoryRef = useRef<{ role: string; parts: { text: string }[] }[]>([]);
+  const chatSessionRef = useRef<any>(null);
 
   /* ── Auto-scroll ── */
   const scrollToBottom = useCallback(() => {
@@ -229,15 +230,12 @@ export default function Chatbot() {
 
   /* ── Core send function ── */
   const sendMessage = useCallback(async (text: string) => {
-    const trimmed = text.trim().slice(0, MAX_INPUT_LENGTH); // hard cap
+    const trimmed = text.trim().slice(0, MAX_INPUT_LENGTH);
     if (!trimmed || isTyping || isSendingRef.current) return;
 
     /* — Session message cap — */
     if (sessionCount >= MAX_MESSAGES_PER_SESSION) {
-      addAssistantMessage(
-        `You've reached the session limit of ${MAX_MESSAGES_PER_SESSION} messages. ` +
-        `Please refresh the page to start a new conversation. 😊`
-      );
+      addAssistantMessage(`Session limit reached. Please refresh. 😊`);
       return;
     }
 
@@ -245,13 +243,10 @@ export default function Chatbot() {
     if (!rateLimiter.check()) {
       const wait = rateLimiter.secondsUntilReset();
       startCooldown(wait);
-      addAssistantMessage(
-        `⏳ You're sending messages too quickly. Please wait ${wait} second${wait !== 1 ? 's' : ''} before trying again.`
-      );
+      addAssistantMessage(`⏳ Too fast! Wait ${wait}s.`);
       return;
     }
 
-    /* — Debounce guard — */
     isSendingRef.current = true;
 
     const userMsg: ChatMessage = {
@@ -266,49 +261,60 @@ export default function Chatbot() {
     setIsTyping(true);
 
     try {
-      chatHistoryRef.current.push({ role: 'user', parts: [{ text: trimmed }] });
-
-      const res = await fetch('/api/chat', {
+      const response = await fetch('/api/chat', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: trimmed,
-          history: chatHistoryRef.current.slice(0, -1),
+          history: messages.map((m) => ({ role: m.role, content: m.content })),
         }),
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || 'Something went wrong');
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || response.statusText);
       }
 
-      const response = data.response;
+      const assistantMsgId = generateId();
+      setMessages((prev) => [
+        ...prev,
+        { id: assistantMsgId, role: 'assistant', content: '', timestamp: new Date() },
+      ]);
+      setIsTyping(false);
 
-      chatHistoryRef.current.push({ role: 'model', parts: [{ text: response }] });
+      let responseText = '';
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder('utf-8');
 
-      const assistantMsg: ChatMessage = {
-        id: generateId(),
-        role: 'assistant',
-        content: response,
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, assistantMsg]);
-      if (!isOpen) setHasUnread(true);
-
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          const chunk = decoder.decode(value, { stream: true });
+          responseText += chunk;
+          
+          // Groq's stream includes 'data: ' prefixes for JSON objects in serverless if we didn't parse them, but wait - we parsed them on the server!
+          // Actually, in `api/chat.js` for both Groq and Gemini, we write raw text chunks directly using `res.write(token)` or `res.write(chunkText)`.
+          // So the stream here is just raw text!
+          setMessages((prev) =>
+            prev.map((msg) =>
+              msg.id === assistantMsgId ? { ...msg, content: responseText } : msg
+            )
+          );
+        }
+      }
     } catch (err: unknown) {
       let errContent: string;
+      const errMsg = err instanceof Error ? err.message : '';
 
-      if (err instanceof Error && err.message === 'API_KEY_MISSING') {
-        errContent =
-          '⚠️ The Gemini API key is not configured. Please add GEMINI_API_KEY to your .env file.';
-      } else if (err instanceof Error && (err.message.includes('429') || err.message === 'RATE_LIMIT')) {
+      if (errMsg === 'API_KEY_MISSING') {
+        errContent = '⚠️ The Gemini API key is not configured. Please add VITE_GEMINI_API_KEY to your .env file.';
+      } else if (errMsg.includes('429') || errMsg === 'RATE_LIMIT') {
         const wait = COOLDOWN_SECONDS;
         startCooldown(wait);
-        errContent =
-          `⏳ The AI service is momentarily busy. Please wait ${wait} seconds and try again.`;
+        errContent = `⏳ The AI service is rate-limited. Please wait ${wait} seconds and try again.`;
+      } else if (errMsg.includes('503') || errMsg.includes('overloaded') || errMsg.includes('high demand')) {
+        errContent = '⚠️ All AI models are currently overloaded. Please try again in a moment.';
       } else {
         errContent = err instanceof Error ? err.message : "Something went wrong. Please try again.";
       }

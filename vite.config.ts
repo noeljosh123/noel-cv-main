@@ -8,10 +8,11 @@ import chatHandler from './api/chat.js';
 const apiPlugin = (mode: string) => ({
   name: 'api-plugin',
   configureServer(server: any) {
+    const env = loadEnv(mode, process.cwd(), '');
+    Object.assign(process.env, env);
+
     server.middlewares.use(async (req: any, res: any, next: any) => {
       if (req.url === '/api/chat' && req.method === 'POST') {
-        const env = loadEnv(mode, process.cwd(), '');
-        Object.assign(process.env, env);
 
         let body = '';
         req.on('data', (chunk: any) => { body += chunk.toString() });
