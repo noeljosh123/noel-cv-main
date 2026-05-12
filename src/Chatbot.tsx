@@ -358,7 +358,7 @@ export default function Chatbot() {
                   <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-surface-container-low" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-on-surface leading-tight">Portfolio Assistant</h3>
+                  <h3 className="text-sm font-bold text-on-surface leading-tight">Noel Josh Casin</h3>
 
                 </div>
               </div>
@@ -389,7 +389,7 @@ export default function Chatbot() {
                 className="flex justify-start"
               >
                 <div className="max-w-[82%] px-4 py-2.5 text-sm leading-relaxed bg-surface-container-high text-on-surface rounded-2xl rounded-bl-md">
-                  Hello! 👋 I'm Noel's portfolio assistant. Ask me anything about his skills, projects, or experience!
+                  Hello! 👋 I'm Noel Josh Casin's assistant. Ask me anything about my skills, projects, or experience!
                 </div>
               </motion.div>
 
@@ -455,7 +455,7 @@ export default function Chatbot() {
                       ? `Wait ${cooldown}s…`
                       : sessionCount >= MAX_MESSAGES_PER_SESSION
                         ? 'Session limit reached'
-                        : 'Ask about Noel…'
+                        : 'Ask about Noel Josh Casin…'
                   }
                   disabled={isInputDisabled}
                   className="flex-1 bg-transparent text-sm text-on-surface placeholder:text-on-surface-variant/50 outline-none py-1.5 disabled:opacity-40"
