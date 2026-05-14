@@ -275,34 +275,15 @@ export default function Chatbot() {
         throw new Error(errData.error || response.statusText);
       }
 
+      const data = await response.json();
+      const responseText = data.response || "Sorry, I couldn't understand that.";
+
       const assistantMsgId = generateId();
       setMessages((prev) => [
         ...prev,
-        { id: assistantMsgId, role: 'assistant', content: '', timestamp: new Date() },
+        { id: assistantMsgId, role: 'assistant', content: responseText, timestamp: new Date() },
       ]);
       setIsTyping(false);
-
-      let responseText = '';
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder('utf-8');
-
-      if (reader) {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          const chunk = decoder.decode(value, { stream: true });
-          responseText += chunk;
-          
-          // Groq's stream includes 'data: ' prefixes for JSON objects in serverless if we didn't parse them, but wait - we parsed them on the server!
-          // Actually, in `api/chat.js` for both Groq and Gemini, we write raw text chunks directly using `res.write(token)` or `res.write(chunkText)`.
-          // So the stream here is just raw text!
-          setMessages((prev) =>
-            prev.map((msg) =>
-              msg.id === assistantMsgId ? { ...msg, content: responseText } : msg
-            )
-          );
-        }
-      }
     } catch (err: unknown) {
       let errContent: string;
       const errMsg = err instanceof Error ? err.message : '';
