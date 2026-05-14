@@ -13,7 +13,6 @@
     "security:check": "npm run lint && npm run build && npm run security:audit"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.24.1",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
     "react": "^19.0.0",

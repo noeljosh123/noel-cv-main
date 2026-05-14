@@ -1,11 +1,11 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 // @ts-ignore
 import chatHandler from './api/chat.js';
 
-const apiPlugin = (mode: string) => ({
+const apiPlugin = () => ({
   name: 'api-plugin',
   configureServer(server: any) {
     const env = loadEnv(mode, process.cwd(), '');
@@ -13,7 +13,6 @@ const apiPlugin = (mode: string) => ({
 
     server.middlewares.use(async (req: any, res: any, next: any) => {
       if (req.url === '/api/chat' && req.method === 'POST') {
-
         let body = '';
         req.on('data', (chunk: any) => { body += chunk.toString() });
         req.on('end', async () => {
@@ -43,8 +42,8 @@ const apiPlugin = (mode: string) => ({
   }
 });
 
-export default defineConfig(({ mode }) => ({
-  plugins: [react(), tailwindcss(), apiPlugin(mode)],
+export default defineConfig(() => ({
+  plugins: [react(), tailwindcss(), apiPlugin()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '.'),

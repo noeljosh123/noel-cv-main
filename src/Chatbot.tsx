@@ -12,7 +12,7 @@ import { PORTFOLIO_CONTEXT } from './portfolioContext';
    Rate-limit constants
    ───────────────────────────────────────────── */
 const MAX_MESSAGES_PER_SESSION = 20;   // max total user messages per page load
-const MAX_REQUESTS_PER_MINUTE = 4;    // Gemini free-tier stays comfortably within 15 RPM
+const MAX_REQUESTS_PER_MINUTE = 4;    // Client-side burst cap for the chat UI
 const COOLDOWN_SECONDS = 15;   // cooldown window when rate-limit is hit
 const MAX_INPUT_LENGTH = 400;  // chars; blocks huge prompt injections
 
@@ -307,9 +307,10 @@ export default function Chatbot() {
       let errContent: string;
       const errMsg = err instanceof Error ? err.message : '';
 
-      if (errMsg === 'API_KEY_MISSING') {
-        errContent = '⚠️ The Gemini API key is not configured. Please add VITE_GEMINI_API_KEY to your .env file.';
-      } else if (errMsg.includes('429') || errMsg === 'RATE_LIMIT') {
+      if (err instanceof Error && err.message === 'API_KEY_MISSING') {
+        errContent =
+          '⚠️ The Groq API key is not configured. Set GROQ_API_KEY in the server environment.';
+      } else if (err instanceof Error && (err.message.includes('429') || err.message === 'RATE_LIMIT')) {
         const wait = COOLDOWN_SECONDS;
         startCooldown(wait);
         errContent = `⏳ The AI service is rate-limited. Please wait ${wait} seconds and try again.`;
