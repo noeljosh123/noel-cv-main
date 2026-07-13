@@ -274,6 +274,14 @@ const resumeProjects = [
     longDesc: 'Architected and implemented the frontend using React and TypeScript with Node.js support, integrated with Python and Django services. The platform streamlined project progress, cost tracking, and reporting for enterprise workflows.',
     tags: ['REACT', 'TYPESCRIPT', 'NODE.JS', 'DJANGO', 'DASHBOARD'],
     repo: '#'
+  },
+  {
+    id: 'process-landscaping',
+    title: 'Process Landscaping (PL APP)',
+    shortDesc: 'A centralized workflow visualization tool focusing on frontend design and backend integration.',
+    longDesc: 'Collaborated with a colleague to build a web tool for process mapping and visualization. Focused on frontend design and connected endpoints from the backend. We helped each other across the full stack to deliver the application.',
+    tags: ['REACT', 'FRONTEND', 'PYTHON', 'COLLABORATION'],
+    repo: '#'
   }
 ];
 
@@ -477,6 +485,7 @@ const Experience = () => (
         <ul className="text-xs leading-relaxed text-on-surface/80 space-y-2 list-disc ml-4">
           <li><strong>Resource Tracker (DEVUTIL v2):</strong> Developed the full-stack web application end-to-end, handling both frontend and backend, to replace the manual Excel-based employee hour-tracking workflow. Built the backend using Python and Django Ninja, and the frontend with React and JavaScript, connected to a SQL database. Enabled real-time resource allocation and editing capabilities.</li>
           <li><strong>OSP Tool (Engagement Oversight):</strong> Architected and built the frontend using React, TypeScript, and Node.js, backed by Python and Django on the server side. Delivered a centralized dashboard to streamline project progress tracking, expense calculation, and financial burn rate monitoring. Integrated Power Platform components to align the application with the broader corporate enterprise ecosystem.</li>
+          <li><strong>Process Landscaping (PL APP):</strong> Focused on the Frontend Design of the web tool and connected endpoints from the backend. Collaborated closely with a colleague (who focused on the backend) in a partnership where we helped each other out on both the frontend and backend from time to time.</li>
         </ul>
       </div>
     </div>

@@ -50,6 +50,7 @@ const PORTFOLIO_CONTEXT = `You are a smart, concise portfolio assistant for Noel
 **Projects & Experience:**
 - **Resource Tracker (DEVUTIL v2)** — A full-stack internal tool developed at **Reed Elsevier (RELX)**. Replaced manual Excel-based tracking with real-time allocation and editing. Stack: **Python**, **Django Ninja**, **React**, **SQL**.
 - **OSP Tool (Engagement Oversight)** — Centralized enterprise dashboard developed at **Reed Elsevier (RELX)** for tracking project progress, expenses, and financial burn rates. Integrated **Power Platform** components. Stack: **React**, **TypeScript**, **Node.js**, **Python**, **Django**.
+- **Process Landscaping (PL APP)** — Centralized workflow visualization tool developed at **Reed Elsevier (RELX)**. Collaborated with a colleague, focusing on the frontend design and integrating backend endpoints. Stack: **React**, **Python**.
 - **CaraBuddy** — Local-first personal finance mobile app prioritizing privacy. Features real-time sync and secure database management. Stack: **Supabase**, **React**, **Tailwind CSS**.
 - **RoaDry** — Flood monitoring and safe route app for Metro Manila. Uses **Dijkstra's algorithm** for routing and **Azure Vision AI** for flood detection. Integrated **Firebase** and **NLP**-based safety data aggregation. Stack: **Dart/Flutter**, **Firebase**, **Azure AI**.
 - **KwikSlot** — Cinema booking platform with an interactive **8×10 seat grid**, VIP pricing tiers, and a multi-step checkout flow with real-time conflict resolution. Stack: **React**, **TypeScript**, **Tailwind CSS**, **Vite**.
@@ -102,6 +103,7 @@ Want the stack for a specific project?`;
 
 - **Resource Tracker (DEVUTIL v2)** at **RELX**: replaced manual Excel tracking with a real-time internal tool
 - **OSP Tool** at **RELX**: centralized project progress, expense, and burn-rate tracking
+- **Process Landscaping (PL APP)** at **RELX**: workflow visualization tool with frontend design focus
 - **CaraBuddy**: a privacy-focused personal finance app
 - **RoaDry**: flood monitoring and safe-route optimization for Metro Manila
 - **KwikSlot**: a cinema booking platform with seat-grid and checkout flow logic
