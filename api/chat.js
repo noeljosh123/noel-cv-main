@@ -235,10 +235,19 @@ function normalizeOrigin(value) {
 
 function getTrustedOrigin() {
   const configuredOrigin = process.env.APP_ORIGIN || process.env.PUBLIC_APP_ORIGIN;
-  const vercelOrigin = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+
+  // Collect ALL Vercel-provided URL env vars — production, deployment, and branch.
+  // Using || would only pick one; instead we add all of them so every valid
+  // Vercel origin is trusted regardless of which variable Vercel populates.
+  const vercelUrls = [
+    process.env.VERCEL_PROJECT_PRODUCTION_URL, // stable production URL (e.g. my-project.vercel.app)
+    process.env.VERCEL_URL,                    // current deployment URL (unique per deploy)
+    process.env.VERCEL_BRANCH_URL,             // branch-preview URL
+  ].filter(Boolean);
+
   const candidates = [
     configuredOrigin,
-    vercelOrigin ? `https://${vercelOrigin}` : '',
+    ...vercelUrls.map((url) => `https://${url}`),
   ]
     .map(normalizeOrigin)
     .filter(Boolean);
